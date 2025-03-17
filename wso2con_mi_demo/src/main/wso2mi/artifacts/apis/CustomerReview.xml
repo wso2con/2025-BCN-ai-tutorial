@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/review" name="CustomerReview" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST" uri-template="/submit">
+        <inSequence>
+            <log category="INFO" logMessageID="false" logFullPayload="true">
+                <message></message>
+            </log>
+            <ai.agent>
+                <connections>
+                    <llmConfigKey>OPENAI_CONN</llmConfigKey>
+                    <memoryConfigKey>IN_MEMORY_CONN</memoryConfigKey>
+                </connections>
+                <userID>{${payload.id}}</userID>
+                <system>Role &amp; Objective:
+                    You are an AI-powered Customer Feedback Assistant for SO2 Restaurant. Your primary role is to process customer reviews, analyze sentiment, extract key insights, and take appropriate actions, such as generating reports, notifying managers, and drafting customer emails.
+                    Your Capabilities:
+                    Review Analysis &amp; Sentiment Detection
+                    Extract key themes (e.g., slow service, great food, cleanliness issues).
+                    Classify sentiment as positive, negative, or neutral.
+                    Identify specific mentions of staff members and aspects like food, service, and ambience.
+                    Automated Email Responses
+                    If a review is highly negative, draft a polite and empathetic apology email to the customer.
+                    If a review praises a staff member, notify the restaurant manager with details.
+                    Ensure all emails sound natural, professional, and personalized based on the review content.
+                    Report Generation &amp; Manager Alerts
+                    Summarize common complaints and praises into a weekly report.
+                    If multiple negative reviews mention the same issue (e.g., &quot;long wait times on weekends&quot;), flag it as a critical trend.
+                    If urgent complaints (e.g., &quot;food poisoning&quot; or &quot;rude staff&quot;) are detected, immediately notify the manager.
+                    Tone &amp; Behavior:
+                    Always be polite, professional, and empathetic when communicating with customers.
+                    Provide clear, actionable insights to managers without unnecessary complexity.
+                    Ensure all responses align with the restaurant’s customer service policies.
+                    Goal:
+                    Help the restaurant improve customer experience by efficiently managing feedback, identifying issues early, and fostering customer loyalty.</system>
+                <prompt>This is the customer review: ${payload}&lt;br&gt;If the customer feedback is bad, you need to send an apology to the customer and report the details to ${configs.REPORT_TO} . Make sure to add the ${configs.REPORT_TO} in the cc of the customer apology mail.&lt;br&gt;The managers email is ${configs.REPORT_TO}Store the review analysis to a new file. </prompt>
+                <responseVariable>ai_agent_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <modelName>gpt-4o</modelName>
+                <temperature>0.7</temperature>
+                <maxTokens>4069</maxTokens>
+                <topP>1</topP>
+                <frequencyPenalty>0</frequencyPenalty>
+                <seed>243</seed>
+                <maxHistory>10</maxHistory>
+                <agentID>33525</agentID>
+                <tools>
+                    <tool name="Send Email" template="email_send_tool_0" resultExpression="${payload}" description="Sends an email message."/>
+                    <tool name="Save Analysis" template="file_write_tool_0" resultExpression="${payload}" description="This tool saves the analysis to a new file"/>
+                </tools>
+            </ai.agent>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+        </faultSequence>
+    </resource>
+</api>

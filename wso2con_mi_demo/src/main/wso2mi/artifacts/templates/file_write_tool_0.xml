@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template name="file_write_tool_0" xmlns="http://ws.apache.org/ns/synapse">
+    <description>This tool saves the analysis to a new file</description>
+    <parameter isMandatory="true" name="filePath" description="Path of the file to be written. The path should be like &quot;User_[userID]_[randomNumber of length 4]&quot;. Eg: &quot;/User_1234_3567.txt&quot;. Be sure to add a forward slash infront of the path"/>
+    <parameter isMandatory="true" name="contentOrExpression" description="Static content or expression to receive content. If not given what is message body will get written."/>
+    <sequence>
+        <file.write configKey="LOCAL_FILE_CONN">
+    <filePath >{${params.functionParams.filePath}}</filePath>
+    <contentOrExpression >{${params.functionParams.contentOrExpression}}</contentOrExpression>
+    <encoding >UTF-8</encoding>
+    <mimeType >Automatic</mimeType>
+    <compress >false</compress>
+    <writeMode >Create New</writeMode>
+    <enableStreaming >false</enableStreaming>
+    <appendNewLine >false</appendNewLine>
+    <enableLock >false</enableLock>
+    <includeResultTo >Message Body</includeResultTo>
+    <updateLastModified >true</updateLastModified>
+    <maxRetries >0</maxRetries>
+    <retryDelay >0</retryDelay>
+        </file.write>
+    </sequence>
+</template>

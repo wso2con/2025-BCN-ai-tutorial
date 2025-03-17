@@ -1,0 +1,19 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/.apivcs": true,
+        "**/.gitignore": true,
+        "**/.designer.json": true,
+        "**/.exchange.xml": true,
+        "**/.vscode": true,
+        "**/.mvn": true,
+        "**/.exchange_modules_tmp": true,
+        ".mule": true
+    },
+    "MI.SERVER_PATH": "/Users/rosens/Documents/WSO2Con2025/wso2mi-4.4.0-SNAPSHOT",
+    "MI.JAVA_HOME": "/Users/rosens/.wso2-mi/java/jdk-21.0.5+11/Contents/Home"
+}

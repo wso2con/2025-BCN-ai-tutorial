@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template name="email_send_tool_0" xmlns="http://ws.apache.org/ns/synapse">
+    <description>Sends an email message.</description>
+    <parameter isMandatory="true" name="subject" description="The subject of the email"/>
+    <parameter isMandatory="true" name="to" description="The recipient addresses of 'To' (primary) type"/>
+    <parameter isMandatory="true" name="content" description="Body of the message in any format"/>
+    <sequence>
+        <email.send configKey="GMAIL_CONN">
+    <from >sthuva98@gmail.com</from>
+    <personalName >SO2 Customer Service</personalName>
+    <to >{${params.functionParams.to}}</to>
+    <cc ></cc>
+    <bcc ></bcc>
+    <replyTo >sthuva98@gmail.com</replyTo>
+    <subject >{${params.functionParams.subject}}</subject>
+    <content >{${params.functionParams.content}}</content>
+    <contentType >text/html</contentType>
+    <encoding >UTF-8</encoding>
+    <attachments ></attachments>
+    <inlineImages >[]</inlineImages>
+            <contentTransferEncoding>Base64</contentTransferEncoding>
+        </email.send>
+    </sequence>
+</template>
