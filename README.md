@@ -19,7 +19,7 @@ Attendees will gain insights on:
 
 #### Prerequisites
 
-1) Install [Visual Studio Code]((https://code.visualstudio.com/))
+1) Install [Visual Studio Code](https://code.visualstudio.com/)
 2) Set up [Ballerina Integrator](https://wso2.github.io/docs-bi/get-started/quick-start-guide/)
 3) Open [WSO2Con Assistant](/wso2con_chat_assistant/) using Ballerina Integrator
 
