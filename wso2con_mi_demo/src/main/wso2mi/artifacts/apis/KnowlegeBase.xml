@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/knowlegebase" name="KnowlegeBase" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST" uri-template="/addToStore">
+        <inSequence>
+            <ai.addToKnowledge>
+                <connections>
+                    <embeddingConfigKey>OPENAI_CONN</embeddingConfigKey>
+                    <vectorStoreConfigKey>PINECONE</vectorStoreConfigKey>
+                </connections>
+                <input>{${payload.text}}</input>
+                <needParse>true</needParse>
+                <parseType>html-to-text</parseType>
+                <needSplit>true</needSplit>
+                <splitStrategy>Recursive</splitStrategy>
+                <maxSegmentSize>1000</maxSegmentSize>
+                <maxOverlapSize>201</maxOverlapSize>
+                <needEmbedding>true</needEmbedding>
+                <embeddingModel>text-embedding-3-small</embeddingModel>
+                <responseVariable>ai_addToKnowledge_1</responseVariable>
+                <overwriteBody>false</overwriteBody>
+            </ai.addToKnowledge>
+            <payloadFactory media-type="json" template-type="default">
+                <format>${vars.ai_addToKnowledge_1.payload}</format>
+            </payloadFactory>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+        </faultSequence>
+    </resource>
+    <resource methods="POST" uri-template="/getFromStore">
+        <inSequence>
+            <ai.getFromKnowledge>
+                <connections>
+                    <embeddingConfigKey>OPENAI_CONN</embeddingConfigKey>
+                    <vectorStoreConfigKey>PINECONE</vectorStoreConfigKey>
+                </connections>
+                <input>{${payload.text}}</input>
+                <needEmbedding>true</needEmbedding>
+                <embeddingModel>text-embedding-3-small</embeddingModel>
+                <maxResults>10</maxResults>
+                <minScore>0.6</minScore>
+                <responseVariable>ai_getFromKnowledge_1</responseVariable>
+                <overwriteBody>false</overwriteBody>
+            </ai.getFromKnowledge>
+
+            <payloadFactory media-type="json" template-type="default">
+                <format>${vars.ai_getFromKnowledge_1.payload}</format>
+            </payloadFactory>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+        </faultSequence>
+    </resource>
+</api>

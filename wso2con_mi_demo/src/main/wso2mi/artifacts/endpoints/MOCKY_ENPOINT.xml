@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoint name="MOCKY_ENPOINT" xmlns="http://ws.apache.org/ns/synapse">
+    <http method="get"   uri-template="https://run.mocky.io/v3/79706a36-bef5-4c1c-abc1-487cd449b6c3">
+        <suspendOnFailure>
+            <initialDuration>-1</initialDuration>
+            <progressionFactor>1</progressionFactor>
+        </suspendOnFailure>
+        <markForSuspension>
+            <retriesBeforeSuspension>0</retriesBeforeSuspension>
+        </markForSuspension>
+    </http>
+</endpoint>
