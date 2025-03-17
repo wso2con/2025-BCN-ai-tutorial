@@ -1,0 +1,4 @@
+[package]
+org = "nadheesh"
+name = "wso2con_assistant"
+version = "0.1.0"
