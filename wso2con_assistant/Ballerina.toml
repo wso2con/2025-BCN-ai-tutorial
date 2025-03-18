@@ -2,3 +2,15 @@
 org = "nadheesh"
 name = "wso2con_assistant"
 version = "0.1.0"
+
+
+
+
+
+
+
+
+[[tool.openapi]]
+id = "wso2conBackend"
+targetModule = "wso2conBackend"
+filePath = "/Users/nadheesh/Documents/wso2-con/internal-app-wso2con-ai-agents/wso2con_mobile_service/service_openapi.yaml"
